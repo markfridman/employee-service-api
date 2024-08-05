@@ -20,11 +20,6 @@ describe('Employee API', () => {
     return await request(app).get(`/api/v1/employees/${id}`);
   };
 
-  beforeEach(async () => {
-    // Clear the employee data before each test
-    // This assumes you have an endpoint to clear the data, if not, you might need to modify the service directly
-    await request(app).post('/api/v1/employees/clear').send();
-  });
   describe('POST /api/v1/employees', () => {
     it('should create a new employee', async () => {
       const employee = randomEmployee();
@@ -92,7 +87,7 @@ describe('Employee API', () => {
       const employee = randomEmployee();
       await createEmployee(employee);
 
-      const deleteResponse = await request(app).delete(`/api/v1/employees/${employee.id}`);
+      const deleteResponse = await deleteEmployee(employee.id);
       expect(deleteResponse.status).toBe(204);
 
       const getResponse = await getEmployee(employee.id);

@@ -1,17 +1,11 @@
 import * as employeeService from '../src/services/employeeService';
 import { Employee } from '../src/interfaces/employee';
-
+import mockEmployees from '../src/data/mockEmployees';
 describe('Employee Service', () => {
   let initialEmployees: Employee[];
 
   beforeEach(() => {
-    initialEmployees = [
-      { id: 1, name: "John Doe", position: "Manager" },
-      { id: 2, name: "Jane Smith", position: "Waiter" },
-      { id: 3, name: "Bob Johnson", position: "Chef" },
-      { id: 4, name: "Alice Brown", position: "HR Specialist" },
-      { id: 5, name: "Charlie Davis", position: "Marketing Coordinator" }
-    ];
+    initialEmployees = [...mockEmployees];
     (employeeService as any).employees = [...initialEmployees];
     (employeeService as any).nextId = initialEmployees.length + 1;
   });
@@ -32,10 +26,10 @@ describe('Employee Service', () => {
   });
 
   test('createEmployee adds a new employee', () => {
-    const newEmployee = employeeService.createEmployee("Arik Einstein", "Vocalist");
+    const newEmployee = employeeService.createEmployee("Arik Einstein", "Waiter");
     expect(newEmployee.id).toBe(6);
     expect(newEmployee.name).toBe("Arik Einstein");
-    expect(newEmployee.position).toBe("Vocalist");
+    expect(newEmployee.position).toBe("Waiter");
     expect(employeeService.getAllEmployees()).toHaveLength(6);
   });
 
